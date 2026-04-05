@@ -28,6 +28,12 @@ const ContactSection = () => {
     const data: Record<string, string> = {};
     formData.forEach((v, k) => (data[k] = v.toString()));
 
+    // Honeypot anti-bot
+    if (data.website?.trim()) {
+      setErrors({ form: "Falha ao enviar formulário." });
+      return;
+    }
+
     const errs = validate(data);
     setErrors(errs);
     if (Object.keys(errs).length > 0) return;
@@ -41,13 +47,54 @@ const ContactSection = () => {
     lastSubmitRef.current = now;
 
     setStatus("loading");
+    setErrors({});
 
-    // Simulate submission (backend integration needed)
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      setStatus("success");
-      form.reset();
-    } catch {
+      const response = await fetch("http://127.0.0.1:5000/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: data.name || "",
+          email: data.email || "",
+          phone: data.phone || "",
+          company: data.company || "",
+          serviceType: data.serviceType || "",
+          message: data.message || "",
+          website: data.website || "",
+        }),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        setStatus("success");
+        form.reset();
+        setErrors({});
+        return;
+      }
+
+      // 400 - erro de validação
+      if (response.status === 400) {
+        setErrors(result.fields || { form: result.error || "Dados inválidos." });
+        setStatus("idle");
+        return;
+      }
+
+      // 429 - rate limit do backend
+      if (response.status === 429) {
+        setErrors({ form: "Muitas tentativas. Aguarde um pouco e tente novamente." });
+        setStatus("idle");
+        return;
+      }
+
+      // outros erros
+      setErrors({ form: result.error || "Erro ao enviar formulário." });
+      setStatus("error");
+    } catch (error) {
+      console.error("Erro ao enviar formulário:", error);
+      setErrors({ form: "Não foi possível conectar ao servidor." });
       setStatus("error");
     }
   };
@@ -125,7 +172,7 @@ const ContactSection = () => {
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="bg-card rounded-xl shadow-card p-8 space-y-5">
+              <form onSubmit={handleSubmit} className="relative bg-card rounded-xl shadow-card p-8 space-y-5">
                 <div className="grid sm:grid-cols-2 gap-5">
                   <div>
                     <label className="text-sm font-medium text-foreground mb-1.5 block">Nome *</label>
@@ -173,6 +220,22 @@ const ContactSection = () => {
                     className={inputClasses("message") + " resize-none"}
                   />
                   {errors.message && <p className="text-xs text-destructive mt-1">{errors.message}</p>}
+                </div>
+
+                {/* honeypot anti-bot */}
+                <div
+                  className="absolute -left-[9999px] opacity-0 pointer-events-none"
+                  aria-hidden="true"
+                >
+                  <label htmlFor="website">Website</label>
+                  <input
+                    id="website"
+                    name="website"
+                    type="text"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    defaultValue=""
+                  />
                 </div>
 
                 {errors.form && (
