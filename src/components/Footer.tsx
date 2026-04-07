@@ -53,8 +53,8 @@ const Footer = () => {
             <ul className="space-y-3">
               {[
                 { icon: MapPin, text: "Brasil — Nacional" },
-                { icon: Phone, text: "(00) 0000-0000" },
-                { icon: Mail, text: "contato@transagro.com.br" },
+                { icon: Phone, text: "(14) 99851-0568" },
+                { icon: Mail, text: "contato@transagrobe-log.com.br" },
               ].map((c) => (
                 <li key={c.text} className="flex items-center gap-2 text-sm text-surface-dark-foreground/50">
                   <c.icon className="h-4 w-4 text-primary" />

@@ -28,10 +28,23 @@ const HeroSection = () => {
             <span className="text-gradient-primary">no prazo certo.</span>
           </h1>
 
-          <p className="text-lg sm:text-xl text-primary-foreground/80 leading-relaxed max-w-xl animate-fade-up" style={{ animationDelay: "0.2s" }}>
-            A Trans Agro oferece soluções logísticas com segurança, pontualidade
-            e eficiência comprovada. Transporte rodoviário de cargas com
-            compromisso e capacidade operacional que você pode confiar.
+          <p
+            className="text-lg sm:text-xl text-primary-foreground/80 leading-relaxed max-w-xl animate-fade-up"
+            style={{ animationDelay: "0.2s" }}
+          >
+            A Trans Agro B.E. oferece aos seus parceiros soluções logísticas
+            independente do volume, com uma operação de máxima eficiência logística.
+            Visando:
+          </p>
+
+          <ul className="text-lg sm:text-xl text-primary-foreground/80 leading-relaxed max-w-xl list-disc list-inside mt-2 mb-2">
+            <li>Pontualidade</li>
+            <li>Segurança</li>
+          </ul>
+
+          <p className="text-lg sm:text-xl text-primary-foreground/80 leading-relaxed max-w-xl">
+            Onde você, parceiro, pode acompanhar toda a operação conjuntamente
+            pelo sistema de monitoramento, gerando transparência e confiança.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 pt-2 animate-fade-up" style={{ animationDelay: "0.3s" }}>
@@ -42,13 +55,14 @@ const HeroSection = () => {
               <Phone className="h-5 w-5" />
               Fale Conosco
             </a>
-            <a
+            {/* Removido por ser redundante */}
+            {/* <a
               href="#contato"
               className="border-2 border-primary-foreground/30 text-primary-foreground px-8 py-4 rounded-lg font-semibold text-lg flex items-center justify-center gap-2 transition-all duration-300 hover:bg-primary-foreground/10 hover:border-primary-foreground/50"
             >
               <Mail className="h-5 w-5" />
               Entre em Contato
-            </a>
+            </a> */}
           </div>
 
           {/* Stats */}
