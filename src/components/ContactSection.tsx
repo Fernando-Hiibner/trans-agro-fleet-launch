@@ -50,7 +50,8 @@ const ContactSection = () => {
     setErrors({});
 
     try {
-      const response = await fetch("http://127.0.0.1:5000/api/contact", {
+      const API_BASE = import.meta.env.VITE_API_URL || "";
+      const response = await fetch(`${API_BASE}/api/contact`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
