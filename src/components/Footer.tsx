@@ -53,7 +53,7 @@ const Footer = () => {
             <ul className="space-y-3">
               {[
                 { icon: MapPin, text: "Brasil — Nacional" },
-                { icon: Phone, text: "(14) 99851-0568" },
+                { icon: Phone, text: "(14) 99835-8101" },
                 { icon: Mail, text: "contato@transagrobe-log.com.br" },
               ].map((c) => (
                 <li key={c.text} className="flex items-center gap-2 text-sm text-surface-dark-foreground/50">

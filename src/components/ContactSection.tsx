@@ -133,7 +133,7 @@ const ContactSection = () => {
             <div className="space-y-5">
               {[
                 { icon: MapPin, label: "Endereço", value: "Brasil — Atendimento Nacional" },
-                { icon: Phone, label: "Telefone", value: "(14) 99851-0568" },
+                { icon: Phone, label: "Telefone", value: "(14) 99835-8101" },
                 { icon: Mail, label: "E-mail", value: "contato@transagrobe-log.com.br" },
               ].map((info) => (
                 <div key={info.label} className="flex items-start gap-4">
